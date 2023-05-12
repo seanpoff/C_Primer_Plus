@@ -1,6 +1,7 @@
 /* Write a program that reads input up to # and reports the number of times
  * that the sequence ei occurs. */
 #include <stdio.h>
+#include <ctype.h>
 
 int main(void)
 {
@@ -15,6 +16,9 @@ int main(void)
 
     // while input is not #
     while ((ch = getchar()) != '#') {
+        
+        // make all input lowercase for better evaluation
+        ch = tolower(ch);
 
         // if last character was e and current character is i
         if ('e' == prev && 'i' == ch) count++;
