@@ -15,7 +15,7 @@ int main(void)
     int e_count = 0;
 
     // prompt for user input
-    printf("Enter a list of integers for me to analyze ('0' to quit).\n");
+    printf("Enter a list of integers for me to analyze ('0' to quit).\n\n");
 
     // while value is entered but not 0
     while (((scanf("%d", &num)) == 1) && (num != 0)) {
@@ -34,23 +34,23 @@ int main(void)
 
     // if both types are present, display results
     if (o_count && e_count) {
-        printf("\nNumber of evens: %5d\n       Avg even: %5.1f\n"
-            " Number of odds: %5d\n        Avg odd: %5.1f\n", 
-            e_count, (float)(e_sum / e_count), o_count, 
-            (float)(o_sum / o_count));
+        printf("\nNumber of evens:     Avg even:     "
+            "Number of odds:     Avg odd:\n");
+        printf("%8d %16.1f %16d %17.1f\n", e_count, (float)(e_sum / e_count), 
+            o_count, (float)(o_sum / o_count));
 
     // if only evens present, display results
-    } else if (!o_count) {
-        printf("\nNumber of evens: %5d\n"
-            "    \tAverage: %5.1f -- No odd values.\n",
-            e_count, (float)(e_sum / e_count));
+    } else if (e_count) {
+        printf("\nNumber of evens:     Average:     No odd values\n");
+        printf("%8d %17.1f\n", e_count, (float)(e_sum / e_count));
 
     // if only odds present, display results
     } else {
-        printf("\nNumber of odds: %5d\n"
-            "       Average: %5.1f -- No even values.\n",
-            o_count, (float)(o_sum / o_count));
+        printf("\nNumber of odds:     Average:     No even values.\n");
+        printf("%8d %16.1f\n", o_count, (float)(o_sum / o_count));
     }
+    
+    printf("\nDone!\n");
 
     return 0;
 }
