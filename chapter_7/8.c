@@ -16,38 +16,41 @@
 #include <stdio.h>
 
 /*******************************************************************************
- * #Define Constants
+ * Macro Definitions
  */
 
-// hourly pay rates
-#define PAY_1           (8.75)
-#define PAY_2           (9.33)
-#define PAY_3           (10.00)
-#define PAY_4           (11.20)
+// hourly payrates
+#define PAY_1 8.75
+#define PAY_2 9.33
+#define PAY_3 10.00
+#define PAY_4 11.20
 
 // max regular hours
-#define BASEHRS         (40)
+#define BASEHRS 40
 
 // overtime rate
-#define OT_RATE         (1.5)
+#define OT_RATE 1.5
 
 // tax brackets
-#define BRACKET_1       (300)
-#define BRACKET_2       (150)
+#define BRACKET_1 300
+#define BRACKET_2 150
 
 // tax rates
-#define TAX_RATE_1      (0.15)
-#define TAX_RATE_2      (0.20)
-#define TAX_RATE_3      (0.25)
+#define TAX_RATE_1 0.15
+#define TAX_RATE_2 0.20
+#define TAX_RATE_3 0.25
 
 /*******************************************************************************
- * Prototype Functions
+ * Protoype Functions
  */
 
-float otgross(int hours);
-float taxes1(float gross);
-float taxes2(float gross);
-float taxes3(float gross);
+// get gross income
+float income(int hours);
+
+// get tax withholding
+float tax_1(float gross);
+float tax_2(float gross);
+float tax_3(float gross);
 
 /*******************************************************************************
  * Global Variables
@@ -64,18 +67,21 @@ float gross = 0;
 
 int main(void)
 {
-    // initialize variables
+    // initialize local variables
     int quit = 0;
     int valid = 0;
     int value = 0;
-    int status = 1;
+    int status = 0;
     int choice = 0;
 
     float net = 0;
 
+    // start the loop
+    status = 1;
+
     while (1 == status)
     {
-        printf("\n*********************************************************\n"
+        printf("*********************************************************\n"
                "Enter the number corresponding to the pay rate or action:\n"
                "1) $8.75/hr                          2) $9.33/hr\n"
                "3) $10.00/hr                         4) $11.20/hr\n"
@@ -83,97 +89,81 @@ int main(void)
                "*********************************************************\n\n");
 
         status = scanf("%d", &choice);
-        
-        // if non numerical data entry
-        if (1 != status)
+
+        switch (choice)
         {
-            printf("\nInvalid input. Please try again.\n\n");
-            value = 0;
+            case 1 :
+                baserate = PAY_1;
+                status = 0;
+                value = 1;
             break;
-        }
-        else
-        {
-            switch (choice)
-            {
-                case 1 :
-                    baserate = PAY_1;
-                    status = 0;
-                    value = 1;
-                break;
 
-                case 2 :
-                    baserate = PAY_2;
-                    status = 0;
-                    value = 1;
-                break;
+            case 2 :
+                baserate = PAY_2;
+                status = 0;
+                value = 1;
+            break;
 
-                case 3 :
-                    baserate = PAY_3;
-                    status = 0;
-                    value = 1;
-                break;
+            case 3 :
+                baserate = PAY_3;
+                status = 0;
+                value = 1;
+            break;
 
-                case 4 :
-                    baserate = PAY_4;
-                    status = 0;
-                    value = 1;
-                break;
+            case 4 :
+                baserate = PAY_4;
+                status = 0;
+                value = 1;
+            break;
 
-                case 5 :
-                    status = 0;
-                    value = 0;
-                    quit = 1;
-                    printf("\nGoodbye!\n\n");
-                break;
+            case 5 :
+                status = 0;
+                quit = 1;
+            break;
 
-                default :
-                    printf("\nPlease select a valid option.\n");
-            }
+            default :
+                printf("\nThat is not a valid option.\n");
         }
     }
 
-    if (1 == quit || 0 == value)
+    if (1 != value || 1 == quit)
     {
-        // terminates program
+        printf("\nGoodbye!\n\n");
     }
     else
     {
         printf("\nEnter the number of hours worked.\n\n");
 
+        // use valid flag to verify numerical input
         valid = scanf("%f", &hours);
 
-        if (0 == valid)
+        // if input is valid
+        if (1 != valid) 
         {
             printf("\nInvalid input, please try again.\n\n");
         }
         else
         {
-            if (40 >= hours)
-            {
-                gross = (hours * baserate);
-            }
-            else
-            {
-                otgross(hours);
-            }
+            income(hours);
 
+            // determine total tax withholdings
             if (BRACKET_1 >= gross)
             {
-                taxes1(gross);
+                tax_1(gross);
             }
             else if ((BRACKET_1 + BRACKET_2) >= gross)
             {
-                taxes2(gross);
+                tax_2(gross);
             }
             else
             {
-                taxes3(gross);
+                tax_3(gross);
             }
 
             net = (gross - taxes);
 
             printf("\nTotal Gross Pay     Total Tax Withholding     Total Net "
-                   "Pay\n");
+                "Pay\n");
 
             printf("%10.2f %22.2f %22.2f\n\n", gross, taxes, net);
         }
@@ -183,34 +173,42 @@ int main(void)
 }
 
 /*******************************************************************************
- * Functions Gross & Taxes
+ * Functions
  */
 
-float otgross(int hours)
+float income(int hours)
 {
-    gross = ((BASEHRS * baserate) + (((hours - BASEHRS) * baserate) * OT_RATE));
+    if (40 >= hours)
+    {
+        gross = (hours * baserate);
+    }
+    else 
+    {
+        gross = ((BASEHRS * baserate) + (((hours - BASEHRS) * baserate)
+            * OT_RATE));
+    }
 
     return gross;
 }
 
-float taxes1(float gross)
+float tax_1(float gross)
 {
     taxes = (gross * TAX_RATE_1);
 
     return taxes;
 }
 
-float taxes2(float gross)
+float tax_2(float gross)
 {
     taxes = ((BRACKET_1 * TAX_RATE_1) + ((gross - BRACKET_1) * TAX_RATE_2));
 
     return taxes;
 }
 
-float taxes3(float gross)
+float tax_3(float gross)
 {
     taxes = ((BRACKET_1 * TAX_RATE_1) + (BRACKET_2 * TAX_RATE_2) +
-                    (((gross - BRACKET_1) - BRACKET_2) * TAX_RATE_3));
+        (((gross - BRACKET_1) - BRACKET_2) * TAX_RATE_3));
 
     return taxes;
 }
