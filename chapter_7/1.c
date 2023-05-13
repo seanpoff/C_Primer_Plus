@@ -16,18 +16,23 @@ int main(void)
     printf("Enter some text for me to analyze. Type '#' to quit.\n");
 
     // while char input is not '#'
-    while ((ch = getchar()) != '#') {
-        
+    while ((ch = getchar()) != '#') 
+    {
         // count newline characters
-        if (ch == '\n') {
+        if (ch == '\n') 
+        {
             newline++;
 
         // count spaces
-        } else if (ch == ' ') {
+        } 
+        else if (ch == ' ') 
+        {
             space++;
         
         // count everything else
-        } else {
+        } 
+        else 
+        {
             other++;
         }
     }
