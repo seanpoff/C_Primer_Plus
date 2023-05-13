@@ -17,17 +17,19 @@ int main(void)
     printf("Enter some text for me to analyze ('#' to quit):\n");
 
     // while char input is not '#'
-    while ((ch = getchar()) != '#') {
-        
+    while ((ch = getchar()) != '#') 
+    {        
         // count only alphabetical characters (no white-space)
-        if (isalpha(ch)) {
+        if (isalpha(ch)) 
+        {
             c_cnt++;
 
             // display original character and its' ASCII decimal counterpart
             printf("%3c -- %3d, ", ch, ch);
 
             // limit each row to 8 pairings
-            if ((c_cnt % WIDTH) == 0) {
+            if ((c_cnt % WIDTH) == 0) 
+            {
             printf("\n");
             }
         } 
