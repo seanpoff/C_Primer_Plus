@@ -52,12 +52,13 @@ float basetax = 0;
 
 int main(void)
 {
-    int status = 1;
-    int option = 0;
-    int again = 0;
     int quit = 0;
+    int again = 0;
     int value = 0;
     int valid = 0;
+    int accept = 0;
+    int option = 0;
+    int status = 1;
 
     // set active to start loop
     status = 1;
@@ -110,8 +111,7 @@ int main(void)
 
             default:
                 printf("That is not a valid option.\n");
-                valid = 0;
-                value = 1;
+                quit = 1;
         }
 
         if (1 == quit || 1 != value)
@@ -122,21 +122,28 @@ int main(void)
         else if (1 == valid)
         {
             printf("Please enter your total gross taxable income: ");
-            scanf("%f", &gross);
+            accept = scanf("%f", &gross);
 
-            if (bracket >= gross)
+            if (1 != accept)
             {
-                tax_1(gross);
+                printf("\nInvalid input, please try again.\n\n");
             }
             else
             {
-                tax_2(gross);
+                if (bracket >= gross)
+                {
+                    tax_1(gross);
+                }
+                else
+                {
+                    tax_2(gross);
+                }
+
+                printf("\nYour taxable liability is\n\n%.2f\n", tax);
+
+                // flag to start second iteration of while loop
+                status = 1;
             }
-
-            printf("\nYour taxable liability is\n\n%.2f\n", tax);
-
-            // flag to start second iteration of while loop
-            status = 1;
         }
         else
         {
@@ -154,14 +161,15 @@ int main(void)
 
 float tax_1(float gross)
 {
-    basetax = bracket * BASERATE;
-    tax = basetax;
+    basetax = (bracket * BASERATE);
+
     return tax;
 }
 
 float tax_2(float gross)
 {
-    basetax = bracket * BASERATE;
-    tax = basetax + ((gross - bracket) * RATE_2);
+    basetax = (bracket * BASERATE);
+    tax = (basetax + ((gross - bracket) * RATE_2));
+
     return tax;
 }
