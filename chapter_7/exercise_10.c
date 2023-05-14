@@ -111,7 +111,8 @@ int main(void)
 
             default:
                 printf("That is not a valid option.\n");
-                quit = 1;
+                valid = 0;
+                value = 1;
         }
 
         if (1 == quit || 1 != value)
@@ -119,7 +120,7 @@ int main(void)
             printf("\nGoodbye!\n\n");
             break;
         }
-        else if (1 == valid)
+        while (1 == valid)
         {
             printf("Please enter your total gross taxable income: ");
             accept = scanf("%f", &gross);
@@ -127,6 +128,7 @@ int main(void)
             if (1 != accept)
             {
                 printf("\nInvalid input, please try again.\n\n");
+                while ('\n' != (getchar()));
             }
             else
             {
@@ -143,11 +145,14 @@ int main(void)
 
                 // flag to start second iteration of while loop
                 status = 1;
+                break;
             }
         }
-        else
+        
+        if (1 != valid)
         {
-            // reiterate the loop
+            // clear input buffer and restart loop
+            while ('\n' != (getchar()))
             status = 1;
         }
     }
