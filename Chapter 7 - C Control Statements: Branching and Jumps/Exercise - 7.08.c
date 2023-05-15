@@ -69,10 +69,10 @@ int main(void)
 {
     // initialize local variables
     int quit = 0;
+    int fail = 0;
     int valid = 0;
-    int value = 0;
-    int status = 0;
     int choice = 0;
+    int status = 0;
 
     float net = 0;
 
@@ -81,8 +81,10 @@ int main(void)
 
     while (1 == status)
     {
-        printf("*********************************************************\n"
-               "Enter the number corresponding to the pay rate or action:\n"
+        status = 0;
+
+        printf("\nEnter the number corresponding to the pay rate or action:\n"
+               "*********************************************************\n"
                "1) $8.75/hr                          2) $9.33/hr\n"
                "3) $10.00/hr                         4) $11.20/hr\n"
                "5) quit\n"
@@ -94,78 +96,84 @@ int main(void)
         {
             case 1 :
                 baserate = PAY_1;
-                status = 0;
-                value = 1;
             break;
 
             case 2 :
                 baserate = PAY_2;
-                status = 0;
-                value = 1;
             break;
 
             case 3 :
                 baserate = PAY_3;
-                status = 0;
-                value = 1;
             break;
 
             case 4 :
                 baserate = PAY_4;
-                status = 0;
-                value = 1;
             break;
 
             case 5 :
-                status = 0;
                 quit = 1;
             break;
 
             default :
                 printf("\nThat is not a valid option.\n");
+                fail = 1;
         }
-    }
 
-    if (1 != value || 1 == quit)
-    {
-        printf("\nGoodbye!\n\n");
-    }
-    else
-    {
-        printf("\nEnter the number of hours worked.\n\n");
-
-        // use valid flag to verify numerical input
-        valid = scanf("%f", &hours);
-
-        // if input is valid
-        if (1 != valid) 
+        if (1 == quit)
         {
-            printf("\nInvalid input, please try again.\n\n");
+            printf("\nGoodbye!\n\n");
+            break;
+        }
+        else if (1 == fail)
+        {
+            // reiterate loop
+            while ('\n' != (getchar()));
+            status = 1;
+            fail = 0;
         }
         else
         {
-            income(hours);
+            printf("\nEnter the number of hours worked.\n\n");
 
-            // determine total tax withholdings
-            if (BRACKET_1 >= gross)
+            // use valid flag to verify numerical input
+            valid = scanf("%f", &hours);
+
+            if (0 == valid) 
             {
-                tax_1(gross);
-            }
-            else if ((BRACKET_1 + BRACKET_2) >= gross)
-            {
-                tax_2(gross);
+                printf("\nInvalid input, please try again.\n");
+                while ('\n' != (getchar()));
+                status = 1;
             }
             else
             {
-                tax_3(gross);
+                income(hours);
+
+                // determine total tax withholdings
+                if (BRACKET_1 >= gross)
+                {
+                    tax_1(gross);
+                }
+                else if ((BRACKET_1 + BRACKET_2) >= gross)
+                {
+                    tax_2(gross);
+                }
+                else
+                {
+                    tax_3(gross);
+                }
+
+                net = (gross - taxes);
+
+                printf("\nTotal Gross Pay     Total Tax Withholding     "
+                       "Total Net Pay\n");
+
+                printf("%10.2f %22.2f %22.2f\n\n", gross, taxes, net);
+
+                // clear all to reiterate loop cleanly
+                while ('\n' != (getchar()));
+                status = 1;
+                fail = 0;
             }
-
-            net = (gross - taxes);
-
-            printf("\nTotal Gross Pay     Total Tax Withholding     Total Net "
-                "Pay\n");
-
-            printf("%10.2f %22.2f %22.2f\n\n", gross, taxes, net);
         }
     }
 
