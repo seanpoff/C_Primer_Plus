@@ -20,25 +20,25 @@
  */
 
 // hourly payrates
-#define PAY_1 8.75
-#define PAY_2 9.33
-#define PAY_3 10.00
-#define PAY_4 11.20
+#define PAY_1           (8.75)
+#define PAY_2           (9.33)
+#define PAY_3           (10.00)
+#define PAY_4           (11.20)
 
 // max regular hours
-#define BASEHRS 40
+#define BASEHRS         (40)
 
 // overtime rate
-#define OT_RATE 1.5
+#define OT_RATE         (1.5)
 
 // tax brackets
-#define BRACKET_1 300
-#define BRACKET_2 150
+#define BRACKET_1       (300)
+#define BRACKET_2       (150)
 
 // tax rates
-#define TAX_RATE_1 0.15
-#define TAX_RATE_2 0.20
-#define TAX_RATE_3 0.25
+#define TAX_RATE_1      (0.15)
+#define TAX_RATE_2      (0.20)
+#define TAX_RATE_3      (0.25)
 
 /*******************************************************************************
  * Protoype Functions
@@ -56,10 +56,10 @@ float tax_3(float gross);
  * Global Variables
  */
 
-float baserate = 0;
 float taxes = 0;
 float hours = 0;
 float gross = 0;
+float baserate = 0;
 
 /*******************************************************************************
  * Function Main
@@ -190,10 +190,10 @@ float income(int hours)
     {
         gross = (hours * baserate);
     }
-    else 
+    else
     {
         gross = ((BASEHRS * baserate) + (((hours - BASEHRS) * baserate)
-            * OT_RATE));
+              * OT_RATE));
     }
 
     return gross;
@@ -216,7 +216,7 @@ float tax_2(float gross)
 float tax_3(float gross)
 {
     taxes = ((BRACKET_1 * TAX_RATE_1) + (BRACKET_2 * TAX_RATE_2) +
-        (((gross - BRACKET_1) - BRACKET_2) * TAX_RATE_3));
+            (((gross - BRACKET_1) - BRACKET_2) * TAX_RATE_3));
 
     return taxes;
 }
