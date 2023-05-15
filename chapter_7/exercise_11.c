@@ -81,7 +81,7 @@ int main(void)
     char repeat = 'n';
 
     int quit = 0;
-    int next = 0;
+    int done = 0;
     int status = 1;
 
     float total = 0;
@@ -91,7 +91,7 @@ int main(void)
         printf("\nChoose from the following what you'd like to buy:\n"
             "******************************************************\n"
             "a) Artichokes ($2.05/lb)        b) Beets ($1.15/lb)\n"
-            "c) Carrots ($1.09/lb)           n) Next\n"
+            "c) Carrots ($1.09/lb)           d) Done\n"
             "q) Quit\n"
             "******************************************************\n\n");
 
@@ -126,8 +126,8 @@ int main(void)
                 while ('\n' != (getchar()));
             break;
 
-            case 'n' :
-                next = 1;
+            case 'd' :
+                done = 1;
                 while('\n' != (getchar()));
             break;
 
@@ -147,7 +147,7 @@ int main(void)
             break;
         }
 
-        if (1 == next)
+        if (1 == done)
         {
             weight(art_lbs, beet_lbs, car_lbs);
 
@@ -158,12 +158,25 @@ int main(void)
             ship_cost(gross_lbs);
 
             printf("\nReceipt\n"
-                   "******************************************************\n"
-                   "Artichokes (%.2flbs @ %.2f/lb) $%10.2f\n"
-                   "Beets      (%.2flbs @ %.2f/lb) $%10.2f\n"
-                   "Carrots    (%.2flbs @ %.2f/lb) $%10.2f\n", art_lbs, P_ART,
-                   (art_lbs * P_ART), beet_lbs, P_BEET, (beet_lbs * P_BEET),
-                   car_lbs, P_CAR, (car_lbs * P_CAR));
+                   "******************************************************\n");
+
+            if (0 < art_lbs)
+            {
+                printf("Artichokes (%.2flbs @ %.2f/lb) $%10.2f\n", art_lbs,
+                    P_ART, (art_lbs * P_ART));
+            }
+
+            if (0 < beet_lbs)
+            {
+                printf("Beets      (%.2flbs @ %.2f/lb) $%10.2f\n", beet_lbs,
+                    P_BEET, (beet_lbs * P_BEET));
+            }
+
+            if (0 < car_lbs)
+            {
+                printf("Carrots    (%.2flbs @ %.2f/lb) $%10.2f\n", car_lbs,
+                    P_CAR, (car_lbs * P_CAR));
+            }
 
             total = ((subtotal - disc) + shipping);
 
@@ -204,7 +217,7 @@ int main(void)
                 beet_cnt = 0;
 
                 status = 1;
-                next = 0;
+                done = 0;
                 quit = 0;
 
                 while('\n' != (getchar()));
