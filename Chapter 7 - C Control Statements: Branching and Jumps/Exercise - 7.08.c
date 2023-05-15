@@ -48,9 +48,7 @@
 float income(int hours);
 
 // get tax withholding
-float tax_1(float gross);
-float tax_2(float gross);
-float tax_3(float gross);
+float tax(float gross);
 
 /*******************************************************************************
  * Global Variables
@@ -148,19 +146,7 @@ int main(void)
             {
                 income(hours);
 
-                // determine total tax withholdings
-                if (BRACKET_1 >= gross)
-                {
-                    tax_1(gross);
-                }
-                else if ((BRACKET_1 + BRACKET_2) >= gross)
-                {
-                    tax_2(gross);
-                }
-                else
-                {
-                    tax_3(gross);
-                }
+                tax(gross);
 
                 net = (gross - taxes);
 
@@ -199,24 +185,21 @@ float income(int hours)
     return gross;
 }
 
-float tax_1(float gross)
-{
-    taxes = (gross * TAX_RATE_1);
-
-    return taxes;
-}
-
-float tax_2(float gross)
-{
-    taxes = ((BRACKET_1 * TAX_RATE_1) + ((gross - BRACKET_1) * TAX_RATE_2));
-
-    return taxes;
-}
-
-float tax_3(float gross)
-{
-    taxes = ((BRACKET_1 * TAX_RATE_1) + (BRACKET_2 * TAX_RATE_2) +
-            (((gross - BRACKET_1) - BRACKET_2) * TAX_RATE_3));
+float tax(float gross)
+{            
+    if (BRACKET_1 >= gross)
+    {
+        taxes = (gross * TAX_RATE_1);
+    }
+    else if ((BRACKET_1 + BRACKET_2) >= gross)
+    {
+        taxes = ((BRACKET_1 * TAX_RATE_1) + ((gross - BRACKET_1) * TAX_RATE_2));
+    }
+    else
+    {
+        taxes = ((BRACKET_1 * TAX_RATE_1) + (BRACKET_2 * TAX_RATE_2) +
+                (((gross - BRACKET_1) - BRACKET_2) * TAX_RATE_3));
+    }
 
     return taxes;
 }
