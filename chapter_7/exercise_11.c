@@ -90,9 +90,9 @@ int main(void)
     {
         printf("\nChoose from the following what you'd like to buy:\n"
             "******************************************************\n"
-            "a) Artichokes ($2.05/lb)        b) beets ($1.15/lb)\n"
-            "c) Carrots ($1.09/lb)           n) next\n"
-            "q) quit\n"
+            "a) Artichokes ($2.05/lb)        b) Beets ($1.15/lb)\n"
+            "c) Carrots ($1.09/lb)           n) Next\n"
+            "q) Quit\n"
             "******************************************************\n\n");
 
         veg = tolower(getchar());
