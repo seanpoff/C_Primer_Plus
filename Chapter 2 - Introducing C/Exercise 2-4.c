@@ -42,13 +42,9 @@ int main(void)
 void jolly(void)
 {
     printf("For he's a jolly good fellow!\n");
-
-    return 0;
 }
 
 void deny(void)
 {
     printf("Which nobody can deny!\n\n");
-
-    return 0;
 }
