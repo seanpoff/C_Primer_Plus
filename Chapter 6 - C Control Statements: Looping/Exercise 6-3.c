@@ -24,17 +24,17 @@
 
 int main(void)
 {
-    int limit = 6;
-    int row = 0;
-    int col = 0;
+    char let = 'F';
+    char end = 'A';
+    char start = 'F';
 
     printf("\n");
 
-    for (row = 1; row <= limit; row++)
+    for (end = let; end >= 'A'; end--)
     {
-        for (col = 0; col < row; col++)
+        for (start = let; start >= end; start--)
         {
-            printf("%c", ('F' - col));
+            printf("%c", start);
         }
 
         printf("\n");
