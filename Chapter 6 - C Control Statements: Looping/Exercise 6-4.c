@@ -1,11 +1,11 @@
 /* Use nested loops to produce the following pattern:
  *
- *      A
- *      BC
- *      DEF
- *      GHIJ
- *      KLMNO
- *      PQRSTU
+ * A
+ * BC
+ * DEF
+ * GHIJ
+ * KLMNO
+ * PQRSTU
  *
  * If your system doesn't encode letters in numeric order, see the suggestion
  * in programming exercise 6-3.c.
