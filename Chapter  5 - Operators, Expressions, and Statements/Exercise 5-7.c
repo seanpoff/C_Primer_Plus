@@ -8,14 +8,7 @@
  * Function Prototypes
  */
 
-double cube(double num);
-
-/*******************************************************************************
- * Global Variables
- */
-
-double num = 0;
-double product = 0;
+double cube(double a);
 
 /*******************************************************************************
  * Function Main
@@ -23,23 +16,28 @@ double product = 0;
 
 int main(void)
 {
+    double num = 0;
+    double answer = 0;
+
     printf("\nEnter a number to be cubed: ");
     scanf("%lf", &num);
 
-    cube(num);
+    answer = cube(num);
 
-    printf("\n%.2lf is approximately %.2lf cubed.\n\n", num, product);
+    printf("\n%.2lf is approximately %.2lf cubed.\n\n", num, answer);
 
     return 0;
 }
 
 /*******************************************************************************
- * Function Cube
+ * Function cube
  */
 
-double cube(double num)
+double cube(double a)
 {
-    product = (num * num * num);
+    double res = 0;
 
-    return product;
+    res = (a * a * a);
+
+    return res;
 }
