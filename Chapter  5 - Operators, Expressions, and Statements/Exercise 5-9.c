@@ -32,16 +32,10 @@
 #define KELVIN      (273.16)
 
 /*******************************************************************************
- * Global Variables
- */
-
-double f = 0;
-
-/*******************************************************************************
  * Function Prototypes
  */
 
-void temperatures(double f);
+void temperatures(double val);
 
 /*******************************************************************************
  * Function Main
@@ -49,9 +43,11 @@ void temperatures(double f);
 
 int main(void)
 {
+    double f = 0;
+
     printf("\nEnter a temperature in Fahrenheit: ");
 
-    while (1 == (scanf("%lf", &f)))
+    while (1 == scanf("%lf", &f))
     {
         temperatures(f);
 
@@ -64,14 +60,14 @@ int main(void)
 }
 
 /*******************************************************************************
- * Function Temperatures
+ * Function temperatures
  */
 
-void temperatures(double f)
+void temperatures(double val)
 {
-    const double C = ((CELSIUS) * (f - 32));
+    const double C = ((CELSIUS) * (val - 32));
     const double K = (C + KELVIN);
 
     printf("\n%.2lf degrees Fahrenheit is approximately %.2lf degrees Celsius, "
-           "and approximately %.2lf degrees Kelvin.\n", f, C, K);
+           "and approximately %.2lf degrees Kelvin.\n", val, C, K);
 }
