@@ -7,15 +7,7 @@
  * Function Prototype
  */
 
-double result(double x, double y);
-
-/*******************************************************************************
- * Global Variables
- */
-
-double x = 0;
-double y = 0;
-double res = 0;
+double result(double a, double b);
 
 /*******************************************************************************
  * Function Main
@@ -23,11 +15,15 @@ double res = 0;
 
 int main(void)
 {
+    double x = 0;
+    double y = 0;
+    double res = 0;
+
     printf("\nEnter a pair of numbers: ");
 
     while (2 == (scanf("%lf %lf", &x, &y)))
     {
-        result(x,y);        
+        res = result(x,y);        
 
         printf("\n(%.3g - %.3g) / (%.3g * %.3g) = %.5g\n", x, y, x, y, res);
 
@@ -38,12 +34,14 @@ int main(void)
 }
 
 /*******************************************************************************
- * Function Result
+ * Function result
  */
 
-double result(double x, double y)
+double result(double a, double b)
 {
-    res = ((x - y) / (x * y));
+    double prod = 0;
 
-    return res;
+    prod = ((a - b) / (a * b));
+
+    return prod;
 }
